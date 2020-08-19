@@ -1,0 +1,4 @@
+class Personaje{
+  Personaje(){
+  }
+}
