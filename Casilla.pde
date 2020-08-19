@@ -22,6 +22,5 @@ class Casilla{
     if (jugador){
       image(texturaJugador, x, y);
     }
-
   }
 }

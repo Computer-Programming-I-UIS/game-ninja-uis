@@ -14,7 +14,7 @@ class Nivel{
     texturaJugador.resize(100,100);
     configuracion = configuracion_;
     JSONArray posicionJugador = configuracion.getJSONArray("jugador");
-    JSONArray enemigos = configuracion.getJSONArray("enemigos");
+    //JSONArray enemigos = configuracion.getJSONArray("enemigos");
     for(int i = 0; i < casillas.length; i++){
       for(int j = 0; j < casillas[i].length; j++){
         casillas[i][j] = new Casilla(texturaPasto, texturaJugador, 100*i+40, 100*j+120);
@@ -34,7 +34,6 @@ class Nivel{
     }
   }
   
-  void click(){
-    
+  void click(){   
   }
 }
