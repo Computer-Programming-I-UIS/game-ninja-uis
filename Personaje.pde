@@ -1,15 +1,13 @@
 class Personaje{
   int x, y;
   ArrayList<Bomba> bombas;
-  PImage texturasBombas[];
   Juego juego;
   int delayBomba;
   double lastBombTime;
   
-  Personaje(Juego juego_, PImage texturasBombas_[]){
+  Personaje(Juego juego_){
     juego = juego_;
     bombas = new ArrayList();
-    texturasBombas = texturasBombas_;
     delayBomba = 1000;
     lastBombTime = millis();
   }
@@ -39,20 +37,24 @@ class Personaje{
     if (key == CODED){
       if (keyCode == UP && y > 0 && !juego.getIfIsObstaculo(x,y-1)){
         y -= 1;
+        sonidoPaso.play();
       } else if (keyCode == DOWN && y < 5 && !juego.getIfIsObstaculo(x,y+1)){
         y += 1;
+        sonidoPaso.play();
       } else if (keyCode == LEFT && x > 0 && !juego.getIfIsObstaculo(x-1,y)){
         x -= 1;
+        sonidoPaso.play();
       } else if (keyCode == RIGHT && x < 11 && !juego.getIfIsObstaculo(x+1,y)){
         x += 1;
+        sonidoPaso.play();
       }
+      
     }
     if (key == ' '){
-      //println("Poner una bomba");
-      println((millis()-lastBombTime) > delayBomba*bombas.size(), millis()-lastBombTime, delayBomba*bombas.size());
+      println("Poner una bomba");
       if(bombas.size() < 5 && (millis()-lastBombTime) > delayBomba){
         lastBombTime = millis();
-        bombas.add(new Bomba(x,y,1,texturasBombas));
+        bombas.add(new Bomba(x,y,1));
       }
     } 
     juego.updateJugador(x,y);

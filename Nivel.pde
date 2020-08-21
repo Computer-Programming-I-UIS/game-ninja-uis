@@ -35,8 +35,20 @@ class Nivel{
     }
   }
   
+  boolean jugadorEnCasilla(int x, int y){
+    return casillas[x][y].jugadorEnCasilla();
+  }
+  
   boolean getIfIsObstaculo(int x, int y){
     return casillas[x][y].getIsObstaculo();
+  }
+  
+  boolean casillaPuedeExplotar(int x, int y){
+    println(x,y);
+    if (x < casillas.length && x > -1 && y < casillas[0].length && y > -1){
+      return casillas[x][y].puedeExplotar();
+    }
+    return false;
   }
   
   void updateJugador(int x, int y){

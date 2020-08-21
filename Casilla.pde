@@ -23,6 +23,17 @@ class Casilla{
     return obstaculo;
   }
   
+  boolean puedeExplotar(){
+    if(!obstaculo){
+      return true;
+    }
+    return false;
+  }
+  
+  boolean jugadorEnCasilla(){
+    return jugador;
+  }
+  
   void dibujar(){
     //image(texturaPasto, x, y);
     fill(53,104,45);

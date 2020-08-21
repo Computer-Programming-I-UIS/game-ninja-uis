@@ -2,12 +2,10 @@ class Juego{
   Menu menu;
   int numeroDeNiveles = 3;
   int estado;
-  PFont fuente;
+
   Nivel niveles[];
   int puntos, vidas, nivel;
   JSONObject configuraciones[];
-  PImage texturaPasto, texturaJugador, texturaObstaculo;
-  PImage[] texturasBombas;
   Personaje jugador;
   
   Juego(){
@@ -15,25 +13,25 @@ class Juego{
     vidas = 3;
     nivel = 0;
     estado = 0;
-    texturasBombas = new PImage[4];
-    for (int i = 0; i < texturasBombas.length; i++){
-      texturasBombas[i] = loadImage(String.format("texturas/bomba%d.png",i));
-    }
-    jugador = new Personaje(this, texturasBombas);
+    jugador = new Personaje(this);
     configuraciones = new JSONObject[numeroDeNiveles];
     for (int i = 0; i < numeroDeNiveles; i++){
       configuraciones[i] = loadJSONObject(String.format("conf/nivel%d.json", i+1));
     }
-    fuente = createFont("fuente/HUM521B.TTF",72);
-    PImage fondo = loadImage("texturas/menu.png");
-    texturaPasto = loadImage("texturas/pasto.png");
-    texturaJugador = loadImage("texturas/ninja.png");
-    texturaObstaculo = loadImage("texturas/ladrillo.png");
-    menu = new Menu(fondo, this);
+    fuente = createFont("fuente/HUM521B.TTF",72);    
+    menu = new Menu();
     niveles = new Nivel[numeroDeNiveles];
     for (int i = 0; i < numeroDeNiveles; i++){
       niveles[i] = new Nivel(this, configuraciones[i], texturaPasto, texturaJugador, texturaObstaculo);
     }
+  }
+  
+  boolean jugadorEnCasilla(int x, int y){
+    return niveles[estado-1].jugadorEnCasilla(x,y);
+  }
+  
+  void quitarVida(){
+    vidas -= 1;
   }
   
   int getPuntos(){
@@ -71,6 +69,10 @@ class Juego{
     if (jugador.getIfBombs()){
       jugador.dibujarBombas();
     }
+  }
+  
+  boolean casillaPuedeExplotar(int x, int y){
+    return niveles[estado-1].casillaPuedeExplotar(x,y);
   }
   
   void subirEstado(){

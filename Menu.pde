@@ -1,20 +1,20 @@
 class Menu{
-  PImage fondo;
-  Juego juego;
-  Menu(PImage fondo_, Juego juego_){
-    fondo = fondo_;
-    juego = juego_;
+  Menu(){
+    //sonidoMenu.loop();
   }
   
   void dibujar(){
-    image(fondo,0,0);
+    image(fondoMenu,0,0);
   }
   
   void click(){
-    if (mouseX > 560 && mouseX < 720 && mouseY > 339 && mouseY < 405){
+    if (mouseX > 560 && mouseX < 720 && mouseY > 309 && mouseY < 369){
       println("Se ha presionado el boton de jugar");
       juego.subirEstado();
-    } else if (mouseX > 553 && mouseX < 729 && mouseY > 427 && mouseY < 491){
+      //sonidoMenu.stop();
+    } else if (mouseX > 527 && mouseX < 759 && mouseY > 376 && mouseY < 450){
+      
+    } else if (mouseX > 553 && mouseX < 732 && mouseY > 460 && mouseY < 528){
       exit();
     }
   }
