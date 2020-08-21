@@ -3,6 +3,7 @@ Juego juego;
 void setup(){
   size(1280,720);
   juego = new Juego();
+  frameRate(-1);
 }
 
 void draw(){

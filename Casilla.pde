@@ -1,12 +1,13 @@
 class Casilla{
-  PImage texturaPasto, texturaJugador;
+  PImage texturaPasto, texturaJugador, texturaObstaculo;
   int x, y;
-  boolean jugador;
-  Casilla(PImage texturaPasto_,PImage texturaJugador_, int x_, int y_){
+  boolean jugador, obstaculo;
+  Casilla(PImage texturaPasto_,PImage texturaJugador_,PImage texturaObstaculo_, int x_, int y_){
     texturaPasto = texturaPasto_;
+    texturaJugador = texturaJugador_;
+    texturaObstaculo = texturaObstaculo_;
     x = x_;
     y = y_;
-    texturaJugador = texturaJugador_;
     jugador = false;
   }
   
@@ -14,13 +15,26 @@ class Casilla{
     jugador = jugador_;
   }
   
+  void setObstaculo(boolean obstaculo_){
+    obstaculo = obstaculo_;
+  }
+  
+  boolean getIsObstaculo(){
+    return obstaculo;
+  }
+  
   void dibujar(){
     //image(texturaPasto, x, y);
     fill(53,104,45);
     noStroke();
-    rect(x,y,100,100);
+    if (obstaculo){
+      image(texturaObstaculo, x, y);
+    } else {
+      rect(x,y,100,100);
+    }
     if (jugador){
       image(texturaJugador, x, y);
     }
+
   }
 }

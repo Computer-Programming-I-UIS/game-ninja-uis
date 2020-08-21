@@ -2,5 +2,8 @@
     "jugador":  [5, 2],
     "enemigos": [
         [0, 0]
+    ],
+    "obstaculos": [
+        [1,1]
     ]
 }
