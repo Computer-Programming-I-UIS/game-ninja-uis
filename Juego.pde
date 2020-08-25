@@ -22,15 +22,30 @@ class Juego{
     menu = new Menu();
     niveles = new Nivel[numeroDeNiveles];
     for (int i = 0; i < numeroDeNiveles; i++){
-      niveles[i] = new Nivel(this, configuraciones[i], texturaPasto, texturaJugador, texturaObstaculo);
+      niveles[i] = new Nivel(this, configuraciones[i], texturaPasto, texturaJugador, texturaObstaculo, 500/(i+1)+500);
     }
+  }
+  
+  void destruirCasilla(int x, int y){
+    niveles[estado-1].destruirCasilla(x,y);
+  }
+  
+  Nivel getNivelObj(){
+    return niveles[estado-1];
+  }
+  
+  boolean puedeIr(int x, int y){
+    return niveles[estado-1].puedeIr(x,y);
   }
   
   boolean jugadorEnCasilla(int x, int y){
     return niveles[estado-1].jugadorEnCasilla(x,y);
   }
   
+  
+  
   void quitarVida(){
+    sonidoHit.play();
     vidas -= 1;
   }
   

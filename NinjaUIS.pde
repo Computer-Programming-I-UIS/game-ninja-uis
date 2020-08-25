@@ -4,12 +4,11 @@ import processing.sound.*;
 Minim soundEngine;
 Juego juego;
 PImage texturaPasto, texturaJugador, texturaObstaculo, fondoMenu;
-PImage[] texturasBombas;
+PImage[] texturasBombas, virus;
 PFont fuente;
 SoundFile sonidoMenu, sonidoBomba, sonidoPaso, sonidoHit;
 
 void setup(){
-  size(1280,720);
   texturaPasto = loadImage("resources/pasto.png");
   texturaJugador = loadImage("resources/ninja.png");
   texturaObstaculo = loadImage("resources/ladrillo.png");
@@ -18,6 +17,10 @@ void setup(){
   for (int i = 0; i < texturasBombas.length; i++){
     texturasBombas[i] = loadImage(String.format("resources/bomba%d.png",i));
   }
+  virus = new PImage[8];
+  for (int i = 0; i < virus.length; i++){
+    virus[i] = loadImage(String.format("resources/virus%d.png",i));
+  }
   sonidoMenu = new SoundFile(this, "resources/start.mp3");
   sonidoBomba = new SoundFile(this, "resources/boom.mp3");
   sonidoPaso = new SoundFile(this, "resources/step.mp3");
@@ -25,6 +28,7 @@ void setup(){
   sonidoBomba.amp(0.1);
   sonidoHit.amp(0.3);
   soundEngine = new Minim(this);
+  size(1280,720);
   juego = new Juego();
   frameRate(-1);
 }

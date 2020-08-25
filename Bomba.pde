@@ -1,8 +1,9 @@
 class Bomba{
   int x, y, magnitud;
   double startedAt;
-  boolean existe, explota;
-  int delay, delayExplosion;
+  boolean existe, explota, quitoVida;
+  int delay, delayExplosion, index;
+  ArrayList<String> rompio;
   
   Bomba(int x_, int y_, int magnitud_){
     startedAt = millis();
@@ -10,68 +11,72 @@ class Bomba{
     y = y_;
     magnitud = magnitud_;
     existe = true;
-    delay = 300;
-    explota = false;    
+    delay = 500;
+    explota = false;   
+    quitoVida = false;
+    rompio = new ArrayList<String  >();
   }
   
   boolean getExiste(){
     return existe;
   }
   
+  boolean dibujarFrame(int casillaX, int casillaY){
+    if(casillaX*casillaY > -1){
+      if(!rompio.contains(""+casillaX+casillaY) && juego.casillaPuedeExplotar(casillaX,casillaY)){
+        if(juego.jugadorEnCasilla(casillaX, casillaY) && !quitoVida){
+          juego.quitarVida();
+          quitoVida = true;
+        }
+        image(texturasBombas[index],100*(casillaX)+40, 100*casillaY+120);
+      } else {
+            if (!rompio.contains(""+casillaX+casillaY)){
+              rompio.add(""+casillaX+casillaY);
+              juego.destruirCasilla(casillaX, casillaY);
+            }
+            return false;
+      }
+    }
+    return true;
+  }
+  
   void dibujar(){
-    println((int)(millis()-startedAt)/delay);
-    if (millis()-startedAt < 4*delay){
-      image(texturasBombas[(int)(millis()-startedAt)/delay],100*x+40, 100*y+120);
+    index = (int)(millis()-startedAt)/delay;
+    if (millis()-startedAt < 4*delay && !explota){
+      image(texturasBombas[index],100*x+40, 100*y+120);
     } else if (!(millis()-startedAt < 4*delay) && !explota) {
+      delay = 60;
+      startedAt = millis()-4*delay;
       explota = true;
       sonidoBomba.play();
-      for (int i = -magnitud; i <= magnitud; i++){
-        if (juego.casillaPuedeExplotar(x+i,y)){
-          if(juego.jugadorEnCasilla(x+i,y))
-          juego.quitarVida();
-          sonidoHit.play();
-        } else if (juego.casillaPuedeExplotar(x,y+i)) {
-          if(juego.jugadorEnCasilla(x,y+i))
-          juego.quitarVida();
-          sonidoHit.play();
-        }
-      }
     }
     if (explota && millis()-startedAt < 11*delay){
       int casillaX, casillaY;
       for (int i = 0; i <= magnitud; i++){
         casillaX = x+i;
         casillaY = y;
-        if (juego.casillaPuedeExplotar(casillaX,casillaY)){
-          image(texturasBombas[(int)(millis()-startedAt)/delay],100*(casillaX)+40, 100*casillaY+120);
-        } else {
+        if(!dibujarFrame(casillaX, casillaY)){
           break;
         }
       }
       for (int i = 1; i <= magnitud; i++){
         casillaX = x-i;
         casillaY = y;
-        if (juego.casillaPuedeExplotar(casillaX,casillaY)){
-          image(texturasBombas[(int)(millis()-startedAt)/delay],100*(casillaX)+40, 100*casillaY+120);
-        } else {
+        if(!dibujarFrame(casillaX, casillaY)){
           break;
         }
       }
       for (int i = 1; i <= magnitud; i++){
         casillaX = x;
         casillaY = y+i;
-        if (juego.casillaPuedeExplotar(casillaX,casillaY)){
-          image(texturasBombas[(int)(millis()-startedAt)/delay],100*(casillaX)+40, 100*casillaY+120);
-        } else {
+        if(!dibujarFrame(casillaX, casillaY)){
           break;
         }
       }
       for (int i = 1; i <= magnitud; i++){
         casillaX = x;
         casillaY = y-i;
-        if (juego.casillaPuedeExplotar(casillaX,casillaY)){
-          image(texturasBombas[(int)(millis()-startedAt)/delay],100*(casillaX)+40, 100*casillaY+120);
-        } else {
+        if(!dibujarFrame(casillaX, casillaY)){
           break;
         }
       }

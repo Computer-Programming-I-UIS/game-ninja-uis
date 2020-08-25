@@ -1,7 +1,8 @@
 class Casilla{
   PImage texturaPasto, texturaJugador, texturaObstaculo;
   int x, y;
-  boolean jugador, obstaculo;
+  boolean jugador, obstaculo, enemigo;
+  
   Casilla(PImage texturaPasto_,PImage texturaJugador_,PImage texturaObstaculo_, int x_, int y_){
     texturaPasto = texturaPasto_;
     texturaJugador = texturaJugador_;
@@ -9,14 +10,23 @@ class Casilla{
     x = x_;
     y = y_;
     jugador = false;
+    enemigo = false;
   }
   
   void setJugador(boolean jugador_){
     jugador = jugador_;
   }
   
+  void setEnemigo(boolean enemigo_){
+    enemigo = enemigo_;
+  }
+  
   void setObstaculo(boolean obstaculo_){
     obstaculo = obstaculo_;
+  }
+  
+  boolean getEnemigo(){
+    return enemigo;
   }
   
   boolean getIsObstaculo(){

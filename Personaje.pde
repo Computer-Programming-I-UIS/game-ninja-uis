@@ -48,10 +48,11 @@ class Personaje{
         x += 1;
         sonidoPaso.play();
       }
-      
+      if (juego.getNivelObj().enemigoEnCasilla(x,y)){
+        juego.quitarVida();
+      }
     }
     if (key == ' '){
-      println("Poner una bomba");
       if(bombas.size() < 5 && (millis()-lastBombTime) > delayBomba){
         lastBombTime = millis();
         bombas.add(new Bomba(x,y,1));

@@ -4,9 +4,11 @@ class Nivel{
   Casilla casillas[][];
   PImage texturaPasto, texturaJugador, texturaObstaculo;
   JSONObject configuracion;
-  JSONArray posicionJugador, enemigos, obstaculos;
+  JSONArray posicionJugador, enemigosArray, obstaculos;
+  ArrayList<Enemigo> enemigos;
+  int dificultad;
   
-  Nivel(Juego juego_, JSONObject configuracion_, PImage texturaPasto_, PImage texturaJugador_, PImage texturaObstaculo_){
+  Nivel(Juego juego_, JSONObject configuracion_, PImage texturaPasto_, PImage texturaJugador_, PImage texturaObstaculo_, int dificultad_){
     juego = juego_;
     estado = new BarraDeEstado(juego);
     casillas = new Casilla[12][6];
@@ -16,7 +18,7 @@ class Nivel{
     texturaJugador.resize(100,100);
     configuracion = configuracion_;
     posicionJugador = configuracion.getJSONArray("jugador");
-    enemigos = configuracion.getJSONArray("enemigos");
+    enemigosArray = configuracion.getJSONArray("enemigos");
     obstaculos = configuracion.getJSONArray("obstaculos");
     for(int i = 0; i < casillas.length; i++){
       for(int j = 0; j < casillas[i].length; j++){
@@ -30,9 +32,30 @@ class Nivel{
       obstaculo = obstaculos.getJSONArray(i);
       casillas[obstaculo.getInt(0)][obstaculo.getInt(1)].setObstaculo(true);
     }
-    for (int i = 0; i < enemigos.size(); i++){
-      
+    dificultad = dificultad_;
+    enemigos = new ArrayList<Enemigo>();
+    JSONArray enemigo;
+    for (int i = 0; i < enemigosArray.size(); i++){
+      enemigo = enemigosArray.getJSONArray(i);
+      enemigos.add(new Enemigo(enemigo.getInt(0), enemigo.getInt(1), dificultad));
     }
+  }
+  
+  void destruirCasilla(int x, int y){
+    if (x < casillas.length && x > -1 && y < casillas[0].length && y > -1){
+      casillas[x][y].setObstaculo(false);
+    }
+  }
+  
+  boolean puedeIr(int x, int y){
+    if(x < casillas.length && x > -1 && y < casillas[0].length && y > -1 && !getIfIsObstaculo(x,y)){
+      return true;
+    }
+    return false;
+  }
+  
+  void setEnemigo(int x, int y, boolean enemigo_){
+    casillas[x][y].setEnemigo(enemigo_);
   }
   
   boolean jugadorEnCasilla(int x, int y){
@@ -43,8 +66,11 @@ class Nivel{
     return casillas[x][y].getIsObstaculo();
   }
   
+  boolean enemigoEnCasilla(int x, int y){
+    return casillas[x][y].getEnemigo();
+  }
+  
   boolean casillaPuedeExplotar(int x, int y){
-    println(x,y);
     if (x < casillas.length && x > -1 && y < casillas[0].length && y > -1){
       return casillas[x][y].puedeExplotar();
     }
@@ -64,6 +90,9 @@ class Nivel{
       for(int j = 0; j < casillas[i].length; j++){
         casillas[i][j].dibujar();
       }
+    }
+    for (Enemigo e:enemigos){
+      e.dibujar();
     }
   }
   
