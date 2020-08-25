@@ -6,7 +6,7 @@ Juego juego;
 PImage texturaPasto, texturaJugador, texturaObstaculo, fondoMenu;
 PImage[] texturasBombas, virus;
 PFont fuente;
-SoundFile sonidoMenu, sonidoBomba, sonidoPaso, sonidoHit;
+SoundFile sonidoMenu, sonidoBomba, sonidoPaso, sonidoHit, sonidoSubirNivel, sonidoPierde;
 
 void setup(){
   texturaPasto = loadImage("resources/pasto.png");
@@ -25,6 +25,8 @@ void setup(){
   sonidoBomba = new SoundFile(this, "resources/boom.mp3");
   sonidoPaso = new SoundFile(this, "resources/step.mp3");
   sonidoHit = new SoundFile(this, "resources/hit.mp3");
+  sonidoSubirNivel = new SoundFile(this, "resources/subir.mp3");
+  sonidoPierde = new SoundFile(this, "resources/pierde.mp3");
   sonidoBomba.amp(0.1);
   sonidoHit.amp(0.3);
   soundEngine = new Minim(this);

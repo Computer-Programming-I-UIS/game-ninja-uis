@@ -6,7 +6,7 @@ class Nivel{
   JSONObject configuracion;
   JSONArray posicionJugador, enemigosArray, obstaculos;
   ArrayList<Enemigo> enemigos;
-  int dificultad;
+  int dificultad, maximoPuntaje;
   
   Nivel(Juego juego_, JSONObject configuracion_, PImage texturaPasto_, PImage texturaJugador_, PImage texturaObstaculo_, int dificultad_){
     juego = juego_;
@@ -20,6 +20,7 @@ class Nivel{
     posicionJugador = configuracion.getJSONArray("jugador");
     enemigosArray = configuracion.getJSONArray("enemigos");
     obstaculos = configuracion.getJSONArray("obstaculos");
+    maximoPuntaje = configuracion.getInt("maximoPuntaje");
     for(int i = 0; i < casillas.length; i++){
       for(int j = 0; j < casillas[i].length; j++){
         casillas[i][j] = new Casilla(texturaPasto, texturaJugador, texturaObstaculo, 100*i+40, 100*j+120);
@@ -34,6 +35,10 @@ class Nivel{
     }
     dificultad = dificultad_;
     enemigos = new ArrayList<Enemigo>();
+    crearEnemigos();
+  }
+  
+  void crearEnemigos(){
     JSONArray enemigo;
     for (int i = 0; i < enemigosArray.size(); i++){
       enemigo = enemigosArray.getJSONArray(i);
@@ -48,14 +53,31 @@ class Nivel{
   }
   
   boolean puedeIr(int x, int y){
-    if(x < casillas.length && x > -1 && y < casillas[0].length && y > -1 && !getIfIsObstaculo(x,y)){
+    if(x < casillas.length && x > -1 && y < casillas[0].length && y > -1 && !getIfIsObstaculo(x,y) && !casillas[x][y].getEnemigo()){
       return true;
     }
     return false;
   }
   
-  void setEnemigo(int x, int y, boolean enemigo_){
-    casillas[x][y].setEnemigo(enemigo_);
+  void matarEnemigo(int x, int y){
+    if (x < casillas.length && x > -1 && y < casillas[0].length && y > -1){
+      casillas[x][y].matarEnemigo();
+    }
+  }
+  
+  ArrayList<String> getCasillasDisponibles(){
+    ArrayList<String> casillasVacias = new ArrayList<String>();
+    for (int i = 0; i < casillas.length; i++){
+      for (int j = 0; j < casillas[i].length; j++){
+        if (!casillas[i][j].getEnemigo() && !getIfIsObstaculo(i,j) && !jugadorEnCasilla(i,j))
+        casillasVacias.add(""+i+j);
+      }
+    }
+    return casillasVacias;
+  }
+  
+  void setEnemigo(int x, int y, boolean enemigo_, Enemigo e){
+    casillas[x][y].setEnemigo(enemigo_, e);
   }
   
   boolean jugadorEnCasilla(int x, int y){
@@ -85,14 +107,36 @@ class Nivel{
   }
   
   void dibujar(){
+    if (juego.getPuntos() >= maximoPuntaje){
+      juego.subirEstado();
+    }
     estado.dibujar();
     for(int i = 0; i < casillas.length; i++){
       for(int j = 0; j < casillas[i].length; j++){
         casillas[i][j].dibujar();
       }
     }
-    for (Enemigo e:enemigos){
-      e.dibujar();
+    dibujarEnemigos();
+  }
+  
+  void dibujarEnemigos(){
+    ArrayList<Enemigo> eliminar = new ArrayList<Enemigo>();
+    int agregar = 0;
+    for(Enemigo e : enemigos){
+      if (e.getExiste()){
+        e.dibujar();
+      } else {
+        agregar += 1;
+        eliminar.add(e);
+      }
+    }
+    enemigos.removeAll(eliminar);
+    for (int i = 0; i < agregar; i++){
+      ArrayList<String> casillasVacias = getCasillasDisponibles();
+      String casilla = casillasVacias.get((int)(random(casillasVacias.size())));
+      int x = Integer.parseInt(casilla.substring(0,1));
+      int y = Integer.parseInt(casilla.substring(1,2));
+      enemigos.add(new Enemigo(x,y,dificultad));
     }
   }
   

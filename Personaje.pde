@@ -55,7 +55,7 @@ class Personaje{
     if (key == ' '){
       if(bombas.size() < 5 && (millis()-lastBombTime) > delayBomba){
         lastBombTime = millis();
-        bombas.add(new Bomba(x,y,1));
+        bombas.add(new Bomba(x,y,juego.getNivel()));
       }
     } 
     juego.updateJugador(x,y);

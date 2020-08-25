@@ -9,6 +9,10 @@ class Juego{
   Personaje jugador;
   
   Juego(){
+    __init__();
+  }
+  
+  void __init__(){
     puntos = 0;
     vidas = 3;
     nivel = 0;
@@ -26,6 +30,10 @@ class Juego{
     }
   }
   
+  void subirPuntos(int cantidad){
+    puntos += cantidad;
+  }
+  
   void destruirCasilla(int x, int y){
     niveles[estado-1].destruirCasilla(x,y);
   }
@@ -40,9 +48,7 @@ class Juego{
   
   boolean jugadorEnCasilla(int x, int y){
     return niveles[estado-1].jugadorEnCasilla(x,y);
-  }
-  
-  
+  }  
   
   void quitarVida(){
     sonidoHit.play();
@@ -78,8 +84,11 @@ class Juego{
     background(0);
     if (estado == 0){
       menu.dibujar();
-    } else {
+    } else if (estado-1 < niveles.length && vidas > 0){
       niveles[estado-1].dibujar();
+    } else {
+      sonidoPierde.play();
+      __init__();
     }
     if (jugador.getIfBombs()){
       jugador.dibujarBombas();
@@ -92,6 +101,7 @@ class Juego{
   
   void subirEstado(){
     estado += 1;
+    sonidoSubirNivel.play();
   }
   
   void keyPressed(){
@@ -101,8 +111,10 @@ class Juego{
   void click(){
     if (estado == 0){
       menu.click();
-    } else {
+    } else if (estado-1<niveles.length) {
       niveles[estado-1].click();
+    } else {
+      
     }
   }
 }

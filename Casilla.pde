@@ -2,6 +2,7 @@ class Casilla{
   PImage texturaPasto, texturaJugador, texturaObstaculo;
   int x, y;
   boolean jugador, obstaculo, enemigo;
+  Enemigo enemigoObj;
   
   Casilla(PImage texturaPasto_,PImage texturaJugador_,PImage texturaObstaculo_, int x_, int y_){
     texturaPasto = texturaPasto_;
@@ -17,8 +18,14 @@ class Casilla{
     jugador = jugador_;
   }
   
-  void setEnemigo(boolean enemigo_){
+  void setEnemigo(boolean enemigo_, Enemigo e){
     enemigo = enemigo_;
+    enemigoObj = e;
+  }
+  
+  void matarEnemigo(){
+    enemigoObj.matar();
+    enemigo = false;
   }
   
   void setObstaculo(boolean obstaculo_){
@@ -45,12 +52,13 @@ class Casilla{
   }
   
   void dibujar(){
-    //image(texturaPasto, x, y);
+    //
     fill(53,104,45);
     noStroke();
     if (obstaculo){
       image(texturaObstaculo, x, y);
     } else {
+      //image(texturaPasto, x, y);
       rect(x,y,100,100);
     }
     if (jugador){

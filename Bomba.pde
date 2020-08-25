@@ -28,6 +28,9 @@ class Bomba{
           juego.quitarVida();
           quitoVida = true;
         }
+        if(juego.getNivelObj().enemigoEnCasilla(casillaX,casillaY)){
+          juego.getNivelObj().matarEnemigo(casillaX, casillaY);
+        }
         image(texturasBombas[index],100*(casillaX)+40, 100*casillaY+120);
       } else {
             if (!rompio.contains(""+casillaX+casillaY)){
