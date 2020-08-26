@@ -52,14 +52,13 @@ class Casilla{
   }
   
   void dibujar(){
-    //
     fill(53,104,45);
     noStroke();
     if (obstaculo){
       image(texturaObstaculo, x, y);
     } else {
-      //image(texturaPasto, x, y);
-      rect(x,y,100,100);
+      image(texturaPasto, x, y);
+      //rect(x,y,100,100);
     }
     if (jugador){
       image(texturaJugador, x, y);

@@ -1,4 +1,4 @@
-class Juego{
+class Juego {
   Menu menu;
   int numeroDeNiveles = 3;
   int estado;
@@ -7,114 +7,113 @@ class Juego{
   int puntos, vidas, nivel;
   JSONObject configuraciones[];
   Personaje jugador;
-  
-  Juego(){
+
+  Juego() {
     __init__();
   }
-  
-  void __init__(){
+
+  void __init__() {
     puntos = 0;
     vidas = 3;
     nivel = 0;
     estado = 0;
     jugador = new Personaje(this);
+    sonidoMenu.play();
     configuraciones = new JSONObject[numeroDeNiveles];
-    for (int i = 0; i < numeroDeNiveles; i++){
+    for (int i = 0; i < numeroDeNiveles; i++) {
       configuraciones[i] = loadJSONObject(String.format("conf/nivel%d.json", i+1));
     }
-    fuente = createFont("fuente/HUM521B.TTF",72);    
+    fuente = createFont("fuente/HUM521B.TTF", 72);    
     menu = new Menu();
     niveles = new Nivel[numeroDeNiveles];
-    for (int i = 0; i < numeroDeNiveles; i++){
+    for (int i = 0; i < numeroDeNiveles; i++) {
       niveles[i] = new Nivel(this, configuraciones[i], texturaPasto, texturaJugador, texturaObstaculo, 500/(i+1)+500);
     }
   }
-  
-  void subirPuntos(int cantidad){
+
+  void subirPuntos(int cantidad) {
     puntos += cantidad;
   }
-  
-  void destruirCasilla(int x, int y){
-    niveles[estado-1].destruirCasilla(x,y);
+
+  void destruirCasilla(int x, int y) {
+    niveles[estado-1].destruirCasilla(x, y);
   }
-  
-  Nivel getNivelObj(){
+
+  Nivel getNivelObj() {
     return niveles[estado-1];
   }
-  
-  boolean puedeIr(int x, int y){
-    return niveles[estado-1].puedeIr(x,y);
+
+  boolean puedeIr(int x, int y) {
+    return niveles[estado-1].puedeIr(x, y);
   }
-  
-  boolean jugadorEnCasilla(int x, int y){
-    return niveles[estado-1].jugadorEnCasilla(x,y);
+
+  boolean jugadorEnCasilla(int x, int y) {
+    return niveles[estado-1].jugadorEnCasilla(x, y);
   }  
-  
-  void quitarVida(){
+
+  void quitarVida() {
     sonidoHit.play();
     vidas -= 1;
   }
-  
-  int getPuntos(){
+
+  int getPuntos() {
     return puntos;
   }
-  
-  int getVidas(){
+
+  int getVidas() {
     return vidas;
   }
-  
-  int getNivel(){
+
+  int getNivel() {
     return estado;
   }
-  
-  void updateJugador(int x, int y){
+
+  void updateJugador(int x, int y) {
     niveles[estado-1].updateJugador(x, y);
   }
-  
-  void setJugador(int x_, int y_){
+
+  void setJugador(int x_, int y_) {
     jugador.setXY(x_, y_);
   }
-  
-  boolean getIfIsObstaculo(int x, int y){
-    return niveles[estado-1].getIfIsObstaculo(x,y);
+
+  boolean getIfIsObstaculo(int x, int y) {
+    return niveles[estado-1].getIfIsObstaculo(x, y);
   }
-  
-  void display(){
-    textFont(fuente,48);
+
+  void display() {
+    textFont(fuente, 48);
     background(0);
-    if (estado == 0){
+    if (estado == 0) {
       menu.dibujar();
-    } else if (estado-1 < niveles.length && vidas > 0){
+    } else if (estado-1 < niveles.length && vidas > 0) {
       niveles[estado-1].dibujar();
     } else {
       sonidoPierde.play();
       __init__();
     }
-    if (jugador.getIfBombs()){
+    if (jugador.getIfBombs()) {
       jugador.dibujarBombas();
     }
   }
-  
-  boolean casillaPuedeExplotar(int x, int y){
-    return niveles[estado-1].casillaPuedeExplotar(x,y);
+
+  boolean casillaPuedeExplotar(int x, int y) {
+    return niveles[estado-1].casillaPuedeExplotar(x, y);
   }
-  
-  void subirEstado(){
+
+  void subirEstado() {
     estado += 1;
     sonidoSubirNivel.play();
   }
-  
-  void keyPressed(){
+
+  void keyPressed() {
     jugador.keyPressed();
   }
-  
-  void click(){
-    if (estado == 0){
+
+  void click() {
+    if (estado == 0) {
       menu.click();
     } else if (estado-1<niveles.length) {
       niveles[estado-1].click();
-    } else {
-      
     }
   }
 }
