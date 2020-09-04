@@ -1,40 +1,60 @@
 Bomberman 1 (1993)
 
-game planners
+Game Planners
 kyon kyon
 makoto sakai
 takayuki hirai
 
-graphic director
+Graphic Director
 takayuki hirai
-graphic designers
+
+Graphic Designers
 volk jun 
 nobi hiraji
 
-main programmer 
+Main Programmer 
 makoto sakai
 
-sub programmers
+Composer
+Jun Chikuma (NES)
+
+Sub Programmers
 makota 
 toshiyuki suzuki
 
-system support
+Efect Sounds
+sonidosmp3gratis.com/mario-kart-lose-1
+sonidosmp3gratis.com/hit
+sonidosmp3gratis.com/start
+sonidosmp3gratis.com/step
+sonidosmp3gratis.com/boom
+
+System Support
 B. hanawa
 
-assistant director 
+Assistant Director 
 kyon kyon 
 yumeobito
 mitsuhiro kadowaki 
 
-supervisor
+Supervisor
 takafumi horio 
 
-director 
+Director 
 mikio ueyama
 
-producers
+Producers
 eiji aoyama 
 masaki kobayashi
 
-by
-huson soft
+Distributor
+Konami Digital Entertainment (Hudson Soft)
+Hudson Soft
+SystemSoft
+Nintendo
+Ubisoft
+Sinclair Research
+Mattel
+
+By
+hudson Soft Konami
