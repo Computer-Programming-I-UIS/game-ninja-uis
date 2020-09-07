@@ -5,6 +5,8 @@ El personaje Bomberman en esta version será un "Ninja", que deberá atravesar u
 ![Ninja](https://1.bp.blogspot.com/-qYNbSVD1WNc/X1ZKF71pi5I/AAAAAAAAMxI/CrJXxM2k-dgSN3pfkxbpaDC64ozpmrKKACLcBGAsYHQ/s320/ninja.png)
 
 Cada partida tendra un limite de 1500 puntos, que seran la llave para avanzar al siguiente nivel. Ninja-UIS, tendra acceso a infinitas bombas, un numero de vidas limitadas (3 Vidas) y mucha adrenalina al pasar por cada uno de los tres niveles para terminar con exito su aventura.
+
+
 ![Llave](https://media1.giphy.com/media/TiCtoQte052iAgZIN0/giphy.gif)
 ![Vida](https://media0.giphy.com/media/N8vX1QlrkhSaA/giphy.gif?cid=ecf05e47f41bc47b0b0a1c59d7ecb1c384a23247ab035c80&rid=giphy.gif)
 ![Bomba](https://1.bp.blogspot.com/-veQIGY7PMd0/X1ZRiaYSL8I/AAAAAAAAMxU/GdJTWam41EIHyANw7q3X_TAspyUEnNWGQCLcBGAsYHQ/s0/Bomba.gif)
