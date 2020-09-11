@@ -75,6 +75,9 @@ Link de su biografia: http://bomberpedia.shoutwiki.com/wiki/Shinichi_Nakamoto
 
 - A Edwar Plata, Colaborador gráfico, estudiante de Ingenieria de Sistemas de la Universidad Industrial de Santander.
 
+## Gameplay
+[![Video](https://1.bp.blogspot.com/-ZhIOYjWg6q4/X1rYopf8unI/AAAAAAAAM0M/8m03F65azzs7tPNofVrafGjhI_ehGb0iwCLcBGAsYHQ/s320/112.jpg)](https://www.youtube.com/watch?v=xAMlIyH9IIU)
+
 ## Presentado por:
   - Juan Camilo Tibaduiza Acevedo. (Grupo B1)
  
